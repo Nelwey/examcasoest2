@@ -1,30 +1,45 @@
 const {Schema, model} = require('mongoose');
-const dueñoSchema = new Schema({
+idAdministrador = [
+  {
+    type:Schema.Types.ObjectId, 
+    ref:'Administrador'
+  }
+]
+const contratoSchema = new Schema({
   tipoContrato:{
-    type:String,
+    type:String, //alquiler/venta
     required:true
   },
-  dueño:{
-    type:mongoose.Schema.Types.ObjectId, 
+  idDueño:{
+    type:Schema.Types.ObjectId, 
     ref:'Dueño'
   },
-  inquilino:{
-    type:mongoose.Schema.Types.ObjectId, 
+  idInquilino:{
+    type:Schema.Types.ObjectId, 
     ref:'Inquilino'
   },
   idPuesto:{
-    type:mongoose.Schema.Types.ObjectId, 
+    type:Schema.Types.ObjectId, 
     ref:'Puesto',
     required:true
   },
   cuotaMensual:{
-    type:Double
+    type:Number
   },
   multa:{
-    type:Double
-  }
+    type:Number
+  },
+  administradores:[
+    {
+      idAdministrador:{
+        type:Schema.Types.ObjectId, 
+        ref:'Administrador',
+      }
+    }
+  ]
+
 },{
   timestamps:true
 });
 
-module.exports = model('Contrato', dueñoSchema);
+module.exports = model('Contrato', contratoSchema);

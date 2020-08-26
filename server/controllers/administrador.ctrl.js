@@ -1,14 +1,20 @@
+
 const puestoCtrl = {};
-const Puesto = require('../models/puesto.model');
+const Administrador = require('../models/administrador.model');
 
 
 //create
-puestoCtrl.createPuesto = async ( req, res ) => {
+puestoCtrl.createAdministrador = async ( req, res ) => {
   try {
-    const {numero,sector,gremio,estado} = req.body;
-    const puestoSchema = new Puesto({numero,sector,gremio,estado});
-    const newPuesto = await puestoSchema.save();
-    if(!newPuesto){
+    const {nombre,nombreUsuario,password,tipo} = req.body;
+    const usuario = {
+      nombreUsuario,
+      password,
+      tipo
+    }
+    const administradorSchema = new Administrador({nombre,usuario});
+    const newAdministrador = await administradorSchema.save();
+    if(!newAdministrador){
       return res.status(500).json({
         ok:false,
         message: 'Error al crear el registro' 

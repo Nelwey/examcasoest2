@@ -1,7 +1,10 @@
 const dueñoCtrl = {};
 const Dueño = require('../models/dueño.model');
 
-
+//render dueño view
+dueñoCtrl.renderDueñoView = async (req , res) => {
+  res.render('dueno/gestionDueno');
+}
 //create
 dueñoCtrl.createDueño = async ( req, res ) => {
   try {
@@ -9,25 +12,15 @@ dueñoCtrl.createDueño = async ( req, res ) => {
     const dueñoSchema = new Dueño({nombres,apellidos,ci,telefono});
     const newDueño = await dueñoSchema.save();
     if(!newDueño){
-      return res.status(500).json({
-        ok:false,
-        message: 'Error al crear el registro' 
-      });
+      req.flash('error_msg', 'Error al crear el registro');
+      return res.redirect('/dueno');
     }else{
-      res.status(200).json({
-        ok:true,
-        message: 'Creado exitosamente' 
-      });
+      req.flash('success_msg', 'Creado Exitosamente!');
+      res.redirect('/dueno');
     }
-
-    
   } catch (error) {
-
-    res.status(500).json({
-      ok:false,
-      message: error 
-    });
-    
+    req.flash('error_msg', 'Error al crear el registro');
+    return res.redirect('/dueno');
   }
 }
 

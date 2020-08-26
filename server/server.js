@@ -48,8 +48,12 @@ app.use((req, res, next) => {
 
 //Routes
 
+app.use(require('./routes/index.routes'));
 app.use(require('./routes/dueño.routes'));
 app.use(require('./routes/inquilino.routes'));
+app.use(require('./routes/puesto.routes'));
+app.use(require('./routes/administrador.routes'));
+app.use(require('./routes/contrato.routes'));
 
 
 module.exports = app;

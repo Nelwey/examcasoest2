@@ -1,7 +1,7 @@
 const {Schema, model} = require('mongoose');
 const puestoSchema = new Schema({
   numero:{
-    type:Integer,
+    type:Number,
     required:true
   },
   sector:{
@@ -15,17 +15,14 @@ const puestoSchema = new Schema({
   estado:{
     type:String,
   },
-  
-  contratos:{
-    contratoVenta:{
-      type:mongoose.Schema.Types.ObjectId, 
-      ref:'Contrato',
-    },
-    contratoAlquiler:{
-      type:mongoose.Schema.Types.ObjectId, 
-      ref:'Contrato',
+  contratos:[
+    {
+      idContrato:{
+        type:Schema.Types.ObjectId, 
+        ref:'Contrato',
+      }
     }
-  },
+  ]
  
 },{
   timestamps:true
