@@ -1,4 +1,12 @@
 const {Schema, model} = require('mongoose');
+
+var Administrador = {
+  idAdministrador:{
+    type: Schema.Types.ObjectId, 
+    ref:'Administrador'
+  }
+};
+
 const contratoSchema = new Schema({
   tipoContrato:{
     type:String, //alquiler/venta
@@ -18,19 +26,15 @@ const contratoSchema = new Schema({
     required:true
   },
   cuotaMensual:{
-    type:Number
+    type:Number,
+    required:true
   },
   multa:{
-    type:Number
+    type:Number,
+    required:true
   },
-  administradores:[
-    {
-      idAdministrador:{
-        type:Schema.Types.ObjectId, 
-        ref:'Administrador',
-      }
-    }
-  ]
+  administradores:[Administrador]
+  
 
 },{
   timestamps:true

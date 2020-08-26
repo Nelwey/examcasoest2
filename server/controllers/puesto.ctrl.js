@@ -3,7 +3,20 @@ const Puesto = require('../models/puesto.model');
 
 //render puestos view
 puestoCtrl.renderPuestoView = async (req , res) => {
-  const puestos = await Puesto.find({});
+
+  const puestosArray = await Puesto.find({});
+  const puestos = [];
+  puestosArray.forEach(e => {
+    objPuesto = {
+      numero:e.numero,
+      sector:e.sector,
+      gremio:e.gremio,
+      estado:e.estado,
+      contratos:e.contratos.length
+    }
+    puestos.push(objPuesto);
+  });
+  
   res.render('puesto/gestionPuesto', {puestos});
 }
 

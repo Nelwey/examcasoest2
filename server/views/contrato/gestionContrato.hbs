@@ -71,7 +71,7 @@
 
                   <div class="row">
                     <div class="col">
-                      <select name="admin" class="form-control mb-2">
+                      <select name="admin" id="admin" class="form-control mb-2">
                         {{#each admin }}
                         <option value="{{_id}}">{{ nombre }}</option>
                         {{/each}}
@@ -99,23 +99,27 @@
     </div>
   </div>
 </div>
-{{!-- <table class="table table-sm table-hover">
+<table class="table table-sm table-hover">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">Nombres</th>
-      <th scope="col">Apellidos</th>
-      <th scope="col">Ci</th>
-      <th scope="col">Telefono</th>
+      <th scope="col">Tipo Contrato</th>
+      <th scope="col">Dueño</th>
+      <th scope="col">Inquilino</th>
+      <th scope="col">Puesto</th>
+      <th scope="col">Cuota Mensual</th>
+      <th scope="col">Multa</th>
     </tr>
   </thead>
   <tbody>
-    {{#each duenos}}
+    {{#each contrato}}
     <tr>
-      <td>{{nombres}}</td>
-      <td>{{apellidos}}</td>
-      <td>{{ci}}</td>
-      <td>{{telefono}}</td>
+      <td>{{tipoContrato}}</td>
+      <td>{{idDueno.nombres}}</td>
+      <td>{{idInquilino.nombres}}</td>
+      <td>{{idPuesto.numero}}</td>
+      <td>{{cuotaMensual}}</td>
+      <td>{{multa}}</td>
     </tr>
     {{/each}}
   </tbody>
-</table> --}}
+</table>
