@@ -1,10 +1,16 @@
 
-const puestoCtrl = {};
+const adminCtrl = {};
 const Administrador = require('../models/administrador.model');
 
 
+//render dueño view
+adminCtrl.renderAdministradorView = async (req , res) => {
+  const administradores = await Administrador.find({});
+  res.render('admin/gestionAdministrador', {administradores});
+}
+
 //create
-puestoCtrl.createAdministrador = async ( req, res ) => {
+adminCtrl.createAdministrador = async ( req, res ) => {
   try {
     const {nombre,nombreUsuario,password,tipo} = req.body;
     const usuario = {
@@ -15,25 +21,18 @@ puestoCtrl.createAdministrador = async ( req, res ) => {
     const administradorSchema = new Administrador({nombre,usuario});
     const newAdministrador = await administradorSchema.save();
     if(!newAdministrador){
-      return res.status(500).json({
-        ok:false,
-        message: 'Error al crear el registro' 
-      });
-    }else{
-      res.status(200).json({
-        ok:true,
-        message: 'Creado exitosamente' 
-      });
-    }
+     
+      req.flash('error_msg', 'Error al crear el registro');
+      return res.redirect('/admin');
 
+    }else{
+      req.flash('success_msg', 'Creado Exitosamente!');
+      res.redirect('/admin');
+    }
     
   } catch (error) {
-
-    res.status(500).json({
-      ok:false,
-      message: error 
-    });
-    
+    req.flash('error_msg', 'Error al crear el registro');
+    return res.redirect('/admin');
   }
 }
 
@@ -44,4 +43,4 @@ puestoCtrl.createAdministrador = async ( req, res ) => {
 
 //delete
 
-module.exports = puestoCtrl;
+module.exports = adminCtrl;

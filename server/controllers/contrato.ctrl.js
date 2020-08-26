@@ -1,45 +1,67 @@
 const contratoCtrl = {};
+
+const Dueño = require('../models/dueño.model');
+const Inquilino = require('../models/inquilino.model');
+const Puesto = require('../models/puesto.model');
+const Administrador = require('../models/administrador.model');
 const Contrato = require('../models/contrato.model');
 
+
+//render dueño view
+contratoCtrl.renderContratoView = async (req , res) => {
+  // const contrato = await Contrato.find({});
+  const duenos = await Dueño.find({});
+  const inquilinos = await Inquilino.find({});
+  const puestos = await Puesto.find({});
+  const admin = await Administrador.find({});
+  res.render('contrato/gestionContrato', {duenos,inquilinos,puestos,admin});
+}
 
 //create
 contratoCtrl.createContrato = async ( req, res ) => {
 
 
   try {
-    const {tipoContrato,idDueno,idInquilino,idPuesto,cuotaMensual,multa,administradores} = req.body;
+    const {tipoContrato,idDueno,idInquilino,idPuesto,cuotaMensual,multa,admin} = req.body;
     
     var arregloObjAdmin = [];
-    administradores.forEach(e => {
+    admin.forEach(e => {
       var objAdmin = {
         idAdministrador:e
       }
       arregloObjAdmin.push(objAdmin);
     });
+
+    if(idInquilino == ""){
+      var contratoSchema = new Contrato({tipoContrato,idDueno,idPuesto,cuotaMensual,multa,administradores:arregloObjAdmin});
+    }else{
+      contratoSchema = new Contrato({tipoContrato,idDueno,idInquilino,idPuesto,cuotaMensual,multa,administradores:arregloObjAdmin});
+    }
     
-    const contratoSchema = new Contrato({tipoContrato,idDueño:idDueno,idInquilino,idPuesto,cuotaMensual,multa,administradores:arregloObjAdmin});
     const newContrato = await contratoSchema.save();
     if(!newContrato){
-      return res.status(500).json({
-        ok:false,
-        message: 'Error al crear el registro' 
-      });
+      req.flash('error_msg', 'Error al crear el registro');
+      return res.redirect('/contrato');
     }else{
-      res.status(200).json({
-        ok:true,
-        message: 'Creado exitosamente' 
-      });
+      objContratos = { idContrato: newContrato._id }
+      const puestoActualizao = await Puesto.update(
+        { _id: idPuesto }, 
+        { $push: { contratos: objContratos } }
+      )
+      if(!puestoActualizao){
+        req.flash('error_msg', 'No se puedo registrar el contrato en el puesto');
+        return res.redirect('/contrato');
+      }else{
+        req.flash('success_msg', 'Creado Exitosamente!');
+        res.redirect('/contrato');
+      }
+
     }
-
-    
   } catch (error) {
-
-    res.status(500).json({
-      ok:false,
-      message: "Error Inesperado" 
-    });
-    
+    req.flash('error_msg', 'Error al crear el registro servidor');
+    return res.redirect('/contrato');
   }
+  
 }
 
 

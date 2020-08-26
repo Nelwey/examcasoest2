@@ -1,0 +1,121 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">Gestion Contratos</h1>
+
+  <div class="btn-toolbar mb-2 mb-md-0">
+    <div class="btn-group mr-2">
+      <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal"
+        data-target="#newContratoModal">Nuevo</button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="newContratoModal" tabindex="-1" role="dialog" aria-labelledby="newContratoModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Nuevo Contrato</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form action="/contrato/add" method="POST">
+              <div class="modal-body">
+
+                <div class="form-group">
+                  <label for="tipoContrato">Tipo</label>
+                  <select name="tipoContrato" id="tipoContrato" class="form-control">
+                    <option value="venta">Venta</option>
+                    <option value="alquiler">Alquiler</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="idDueno">Dueño</label>
+                  <select name="idDueno" id="idDueno" class="form-control">
+                    {{#each duenos}}
+                    <option value="{{_id}}"> {{nombres}} {{apellidos}} </option>
+                    {{/each}}
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="idInquilino">Inquilino</label>
+                  <select name="idInquilino" id="idInquilino" class="form-control">
+                    <option></option>
+                    {{#each inquilinos}}
+                    <option value="{{_id}}">{{nombres}} {{apellidos}}</option>
+                    {{/each}}
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="idPuesto">Puesto</label>
+                  <select name="idPuesto" id="idPuesto" class="form-control">
+                    {{#each puestos}}
+                    <option value="{{_id}}">{{numero}} - {{sector}}</option>
+                    {{/each}}
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="cuotaMensual">Cuota Mensual</label>
+                  <input type="number" class="form-control" name="cuotaMensual" id="cuotaMensual">
+                </div>
+
+                <div class="form-group">
+                  <label for="multa">Multa</label>
+                  <input type="number" class="form-control" name="multa" id="multa">
+                </div>
+
+                <div class="form-group" id="administradoresContenedor">
+                  <label for="admin">Administradores</label>
+
+                  <div class="row">
+                    <div class="col">
+                      <select name="admin" class="form-control mb-2">
+                        {{#each admin }}
+                        <option value="{{_id}}">{{ nombre }}</option>
+                        {{/each}}
+                      </select>
+                    </div>
+                    <div class="col">
+                      <button type="button" class="btn rounded-circle btn-sm btn-danger" id="btnRemoveAdministrador">x</button>
+                    </div>
+                  </div>
+
+                </div>
+                <button type="button" class="btn btn-sm btn-dark" id="btnAddAdministrador">Añadir Administrador</button>
+
+
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{!-- <table class="table table-sm table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Nombres</th>
+      <th scope="col">Apellidos</th>
+      <th scope="col">Ci</th>
+      <th scope="col">Telefono</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each duenos}}
+    <tr>
+      <td>{{nombres}}</td>
+      <td>{{apellidos}}</td>
+      <td>{{ci}}</td>
+      <td>{{telefono}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table> --}}

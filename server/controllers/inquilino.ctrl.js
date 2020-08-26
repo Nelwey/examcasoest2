@@ -1,7 +1,11 @@
 const inquilinoCtrl = {};
 const Inquilino = require('../models/inquilino.model');
 
-
+//render inquilino view
+inquilinoCtrl.renderInquilinoView = async (req , res) => {
+  const inquilino = await Inquilino.find({});
+  res.render('inquilino/gestionInquilino', {inquilino});
+}
 //create
 inquilinoCtrl.createInquilino = async ( req, res ) => {
   try {
@@ -9,24 +13,17 @@ inquilinoCtrl.createInquilino = async ( req, res ) => {
     const inquilinoSchema = new Inquilino({nombres,apellidos,ci,telefono});
     const newInquilino = await inquilinoSchema.save();
     if(!newInquilino){
-      return res.status(500).json({
-        ok:false,
-        message: 'Error al crear el registro' 
-      });
+      req.flash('error_msg', 'Error al crear el registro');
+      return res.redirect('/inquilino');
     }else{
-      res.status(200).json({
-        ok:true,
-        message: 'Creado exitosamente' 
-      });
+      req.flash('success_msg', 'Creado Exitosamente!');
+      res.redirect('/inquilino');
     }
 
     
   } catch (error) {
-
-    res.status(500).json({
-      ok:false,
-      message: error 
-    });
+    req.flash('error_msg', 'Error al crear el registro');
+    return res.redirect('/inquilino');
     
   }
 }

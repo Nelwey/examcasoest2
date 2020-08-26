@@ -1,23 +1,23 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-  <h1 class="h2">Gestion Dueños</h1>
+  <h1 class="h2">Gestion Inquilinos</h1>
 
   <div class="btn-toolbar mb-2 mb-md-0">
     <div class="btn-group mr-2">
       <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal"
-        data-target="#newDuenoModal">Nuevo</button>
+        data-target="#newInquilinoModal">Nuevo</button>
 
       <!-- Modal -->
-      <div class="modal fade" id="newDuenoModal" tabindex="-1" role="dialog" aria-labelledby="newDuenoModalLabel"
+      <div class="modal fade" id="newInquilinoModal" tabindex="-1" role="dialog" aria-labelledby="newInquilinoModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Nuevo Dueno</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Nuevo Inquilino</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <form action="/dueno/add" method="POST">
+            <form action="/inquilino/add" method="POST">
               <div class="modal-body">
 
                 <div class="form-group">
@@ -61,7 +61,7 @@
     </tr>
   </thead>
   <tbody>
-    {{#each duenos}}
+    {{#each inquilino}}
     <tr>
       <td>{{nombres}}</td>
       <td>{{apellidos}}</td>

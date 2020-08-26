@@ -3,7 +3,8 @@ const Dueño = require('../models/dueño.model');
 
 //render dueño view
 dueñoCtrl.renderDueñoView = async (req , res) => {
-  res.render('dueno/gestionDueno');
+  const duenos = await Dueño.find({});
+  res.render('dueno/gestionDueno', {duenos});
 }
 //create
 dueñoCtrl.createDueño = async ( req, res ) => {

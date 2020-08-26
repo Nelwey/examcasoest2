@@ -1,40 +1,44 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-  <h1 class="h2">Gestion Dueños</h1>
+  <h1 class="h2">Gestion Administrador</h1>
 
   <div class="btn-toolbar mb-2 mb-md-0">
     <div class="btn-group mr-2">
       <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal"
-        data-target="#newDuenoModal">Nuevo</button>
+        data-target="#newAdministradorModal">Nuevo</button>
 
       <!-- Modal -->
-      <div class="modal fade" id="newDuenoModal" tabindex="-1" role="dialog" aria-labelledby="newDuenoModalLabel"
+      <div class="modal fade" id="newAdministradorModal" tabindex="-1" role="dialog" aria-labelledby="newAdministradorModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Nuevo Dueno</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Nuevo Administrador</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <form action="/dueno/add" method="POST">
+            <form action="/admin/add" method="POST">
               <div class="modal-body">
 
                 <div class="form-group">
-                  <label for="nombres">Nombres</label>
-                  <input type="text" class="form-control" id="nombres" name="nombres">
+                  <label for="nombre">Nombre</label>
+                  <input type="text" class="form-control" id="nombre" name="nombre">
                 </div>
                 <div class="form-group">
-                  <label for="nombres">Apellidos</label>
-                  <input type="text" class="form-control" id="apellidos" name="apellidos">
+                  <label for="nombreUsuario">Usuario</label>
+                  <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario">
                 </div>
                 <div class="form-group">
-                  <label for="nombres">Ci</label>
-                  <input type="text" class="form-control" id="ci" name="ci">
+                  <label for="">Password</label>
+                  <input type="password" class="form-control" id="password" name="password">
                 </div>
                 <div class="form-group">
-                  <label for="nombres">Telefono</label>
-                  <input type="text" class="form-control" id="telefono" name="telefono">
+                  <label for="tipo">Tipo</label>
+
+                  <select name="tipo" id="tipo" class="form-control">
+                    <option value="administrador">Administrador</option>
+                    <option value="encargado">Encargado</option>
+                  </select>
                 </div>
 
               </div>
@@ -54,19 +58,17 @@
 <table class="table table-sm table-hover">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">Nombres</th>
-      <th scope="col">Apellidos</th>
-      <th scope="col">Ci</th>
-      <th scope="col">Telefono</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Usuario</th>
+      <th scope="col">Tipo</th>
     </tr>
   </thead>
   <tbody>
-    {{#each duenos}}
+    {{#each administradores}}
     <tr>
-      <td>{{nombres}}</td>
-      <td>{{apellidos}}</td>
-      <td>{{ci}}</td>
-      <td>{{telefono}}</td>
+      <td>{{nombre}}</td>
+      <td>{{usuario.nombreUsuario}}</td>
+      <td>{{usuario.tipo}}</td>
     </tr>
     {{/each}}
   </tbody>

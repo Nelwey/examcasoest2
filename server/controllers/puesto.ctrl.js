@@ -1,6 +1,11 @@
 const puestoCtrl = {};
 const Puesto = require('../models/puesto.model');
 
+//render puestos view
+puestoCtrl.renderPuestoView = async (req , res) => {
+  const puestos = await Puesto.find({});
+  res.render('puesto/gestionPuesto', {puestos});
+}
 
 //create
 puestoCtrl.createPuesto = async ( req, res ) => {
@@ -9,24 +14,18 @@ puestoCtrl.createPuesto = async ( req, res ) => {
     const puestoSchema = new Puesto({numero,sector,gremio,estado});
     const newPuesto = await puestoSchema.save();
     if(!newPuesto){
-      return res.status(500).json({
-        ok:false,
-        message: 'Error al crear el registro' 
-      });
+      req.flash('error_msg', 'Error al crear el registro');
+      return res.redirect('/puesto');
     }else{
-      res.status(200).json({
-        ok:true,
-        message: 'Creado exitosamente' 
-      });
+      req.flash('success_msg', 'Creado Exitosamente!');
+      res.redirect('/puesto');
     }
 
     
   } catch (error) {
 
-    res.status(500).json({
-      ok:false,
-      message: error 
-    });
+    req.flash('error_msg', 'Error al crear el registro');
+    return res.redirect('/puesto');
     
   }
 }
